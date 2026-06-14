@@ -20,6 +20,9 @@ public interface IGroupService
 
     List<GroupDto> getGroupsByCreator(UUID creatorId);
 
+    /** Search all public groups by name */
+    List<GroupDto> searchGroups(String query);
+
     /** Get all groups where the user has an approved membership */
     List<UserGroupDto> getUserGroups(UUID userId);
 

@@ -130,6 +130,19 @@ public class GroupServiceImpl implements IGroupService
     }
 
     @Override
+    public List<GroupDto> searchGroups(String query)
+    {
+        String q = query.toLowerCase();
+        return groupRepository.findAllGroups().stream()
+                .filter(g -> "PUBLIC".equals(g.getPrivacy()))
+                .filter(g -> g.getName().toLowerCase().contains(q)
+                        || (g.getDescription() != null && g.getDescription().toLowerCase().contains(q)))
+                .map(this::toDto)
+                .limit(20)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<UserGroupDto> getUserGroups(UUID userId)
     {
         List<UserGroup> userGroups = userGroupRepository.findByUserId(userId);

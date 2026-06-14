@@ -39,6 +39,12 @@ public class GroupController
         return ResponseEntity.ok(groupService.getGroupById(groupId));
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<List<GroupDto>> searchGroups(@RequestParam String q)
+    {
+        return ResponseEntity.ok(groupService.searchGroups(q));
+    }
+
     @PutMapping("/{groupId}")
     public ResponseEntity<GroupDto> updateGroup(
             @PathVariable UUID groupId,

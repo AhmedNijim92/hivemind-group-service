@@ -13,4 +13,7 @@ public interface GroupRepository extends CassandraRepository<Group, UUID>
 {
     @Query("SELECT * FROM groups WHERE creator_id = ?0 ALLOW FILTERING")
     List<Group> findByCreatorId(UUID creatorId);
+
+    @Query("SELECT * FROM groups ALLOW FILTERING")
+    List<Group> findAllGroups();
 }
