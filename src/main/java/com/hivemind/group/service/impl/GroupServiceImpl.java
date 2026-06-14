@@ -100,6 +100,28 @@ public class GroupServiceImpl implements IGroupService
     }
 
     @Override
+    public GroupDto updateGroup(UUID groupId, UUID userId, com.hivemind.group.dto.UpdateGroupRequest request)
+    {
+        Group group = groupRepository.findById(groupId)
+                .orElseThrow(() -> new RuntimeException("Group not found: " + groupId));
+
+        // Only admin/creator can update
+        if (!group.getCreatorId().equals(userId))
+        {
+            throw new RuntimeException("Only the group creator can update this group");
+        }
+
+        if (request.getName() != null) group.setName(request.getName());
+        if (request.getDescription() != null) group.setDescription(request.getDescription());
+        if (request.getProfilePictureUrl() != null) group.setProfilePictureUrl(request.getProfilePictureUrl());
+        if (request.getCoverPictureUrl() != null) group.setCoverPictureUrl(request.getCoverPictureUrl());
+
+        groupRepository.save(group);
+        log.info("Group updated: {} by user: {}", groupId, userId);
+        return toDto(group);
+    }
+
+    @Override
     public List<GroupDto> getGroupsByCreator(UUID creatorId)
     {
         return groupRepository.findByCreatorId(creatorId).stream()
@@ -341,6 +363,8 @@ public class GroupServiceImpl implements IGroupService
                 .description(group.getDescription())
                 .privacy(group.getPrivacy())
                 .memberCount(group.getMemberCount())
+                .profilePictureUrl(group.getProfilePictureUrl())
+                .coverPictureUrl(group.getCoverPictureUrl())
                 .createdAt(group.getCreatedAt())
                 .build();
     }

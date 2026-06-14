@@ -36,6 +36,12 @@ public class Group
     @Column("member_count")
     private int memberCount;
 
+    @Column("profile_picture_url")
+    private String profilePictureUrl;
+
+    @Column("cover_picture_url")
+    private String coverPictureUrl;
+
     @Column("created_at")
     private LocalDateTime createdAt;
 }

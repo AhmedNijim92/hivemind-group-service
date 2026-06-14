@@ -3,6 +3,7 @@ package com.hivemind.group.service;
 import com.hivemind.group.dto.CreateGroupRequest;
 import com.hivemind.group.dto.GroupDto;
 import com.hivemind.group.dto.GroupFollowDto;
+import com.hivemind.group.dto.UpdateGroupRequest;
 import com.hivemind.group.dto.UserGroupDto;
 import com.hivemind.group.entity.GroupMember;
 
@@ -14,6 +15,8 @@ public interface IGroupService
     GroupDto createGroup(UUID creatorId, CreateGroupRequest request);
 
     GroupDto getGroupById(UUID groupId);
+
+    GroupDto updateGroup(UUID groupId, UUID userId, UpdateGroupRequest request);
 
     List<GroupDto> getGroupsByCreator(UUID creatorId);
 

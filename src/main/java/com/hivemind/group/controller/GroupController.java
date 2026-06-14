@@ -5,6 +5,7 @@ import com.hivemind.group.dto.CreateGroupRequest;
 import com.hivemind.group.dto.GroupDto;
 import com.hivemind.group.dto.GroupFollowDto;
 import com.hivemind.group.dto.GroupFollowRequest;
+import com.hivemind.group.dto.UpdateGroupRequest;
 import com.hivemind.group.dto.UserGroupDto;
 import com.hivemind.group.entity.GroupMember;
 import com.hivemind.group.service.IGroupService;
@@ -36,6 +37,15 @@ public class GroupController
     public ResponseEntity<GroupDto> getGroupById(@PathVariable UUID groupId)
     {
         return ResponseEntity.ok(groupService.getGroupById(groupId));
+    }
+
+    @PutMapping("/{groupId}")
+    public ResponseEntity<GroupDto> updateGroup(
+            @PathVariable UUID groupId,
+            @RequestHeader("X-User-Id") UUID userId,
+            @RequestBody UpdateGroupRequest request)
+    {
+        return ResponseEntity.ok(groupService.updateGroup(groupId, userId, request));
     }
 
     /** Get groups created by the current user */
