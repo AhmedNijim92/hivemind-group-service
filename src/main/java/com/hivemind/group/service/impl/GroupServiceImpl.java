@@ -133,8 +133,7 @@ public class GroupServiceImpl implements IGroupService
     public List<GroupDto> searchGroups(String query)
     {
         String q = query.toLowerCase();
-        return groupRepository.findAllGroups().stream()
-                .filter(g -> "PUBLIC".equals(g.getPrivacy()))
+        return groupRepository.findPublicGroups().stream()
                 .filter(g -> g.getName().toLowerCase().contains(q)
                         || (g.getDescription() != null && g.getDescription().toLowerCase().contains(q)))
                 .map(this::toDto)
