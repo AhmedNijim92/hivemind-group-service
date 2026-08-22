@@ -36,7 +36,7 @@ public class GroupServiceImpl implements IGroupService
     private final UserGroupRepository userGroupRepository;
     private final GroupFollowRepository groupFollowRepository;
     private final GroupLikeRepository groupLikeRepository;
-    private final KafkaTemplate<String, GroupCreatedEvent> kafkaTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
 
     @Override
     public GroupDto createGroup(UUID creatorId, CreateGroupRequest request)

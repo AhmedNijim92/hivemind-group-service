@@ -29,7 +29,7 @@ public class PostServiceImpl implements IPostService
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
     private final PostLikeRepository postLikeRepository;
-    private final KafkaTemplate<String, PostCreatedEvent> kafkaTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
 
     @Override
     public PostDto createPost(UUID authorId, String authorName, CreatePostRequest request)
